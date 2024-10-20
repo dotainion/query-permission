@@ -1,5 +1,5 @@
 {
-    "name": "nick/query-permission",
+    "name": "dotainion/query-permission",
     "description": "A package for managing query permissions",
     "version": "1.0.0",
     "type": "library",
@@ -14,7 +14,7 @@
     },
     "authors": [
         {
-            "name": "nick",
+            "name": "dotainion",
             "email": "mb.repairss@gmail.com"
         }
     ],
