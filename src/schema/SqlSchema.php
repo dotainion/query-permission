@@ -1,7 +1,7 @@
 <?php
 namespace src\schema;
 
-class Schema{
+class SqlSchema{
     protected $sql = null;
 
     public function __construct(){
