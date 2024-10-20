@@ -14,6 +14,7 @@ class Connection extends DbCredentials{
 	protected $results;
 	protected SqlId $userId;
 	protected static $_instance;
+	protected bool $requirePermissionCheck = true;
 
 	public function __construct(){
 		$this->connect();
@@ -86,6 +87,14 @@ class Connection extends DbCredentials{
 
 	public static function userId():SqlId{
 		return self::$userId;
+	}
+
+	public static function setRequirePermission(?bool $requirePermission=null):void{
+		self::$requirePermissionCheck = $requirePermission;
+	}
+
+	public static function requirePermission():bool{
+		return self::$requirePermissionCheck;
 	}
 }
 

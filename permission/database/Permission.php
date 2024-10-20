@@ -9,14 +9,22 @@ use permission\security\Connection;
 
 class Permission {
     protected Table $table;
-    protected ListPermission $permissions;
+    protected ?ListPermission $permissions = null;
 
     public function __construct(Table $table){
         $this->table = $table;
+        if(!Connection::requirePermission()){
+            Connection::setRequirePermission(true);
+            return;
+        }
+        Connection::setRequirePermission(false);
         $this->permissions = new ListPermission();
     }
 
     public function permission():self{
+        if($this->permissions === null){
+            return $this;
+        }
         $collector = $this->permissions->byTable(Connection::userId(), $this->table->tableName());
         $collector->assertHasItem('You do not have permission.');
         return $this->assert($collector->first());
