@@ -1,0 +1,23 @@
+{
+    "name": "nick/query-permission",
+    "description": "A package for managing query permissions",
+    "version": "1.0.0",
+    "type": "library",
+    "require": {
+        "kyegil/mysqli-connection": "^1.3",
+        "ramsey/uuid": "^4.2"
+    },
+    "autoload": {
+        "classmap": [
+            "src/"
+        ]
+    },
+    "authors": [
+        {
+            "name": "nick",
+            "email": "mb.repairss@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
