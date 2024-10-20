@@ -3,29 +3,36 @@ namespace permission\database;
 
 use Exception;
 use permission\infrastructure\PermissionException;
-use permission\module\permission\logic\ListPermission;
+use permission\module\permission\factory\PermissionFactory;
 use permission\module\permission\objects\IPermission;
 use permission\security\Connection;
 
 class Permission {
     protected Table $table;
-    protected ?ListPermission $permissions = null;
+    protected Connection $db;
+    protected PermissionFactory $factory;
+    protected static ?string $userId = null;
+    protected static bool $requirePermission = true;
+    protected string $tableName = 'permission';
 
     public function __construct(Table $table){
         $this->table = $table;
-        if(!Connection::requirePermission()){
-            Connection::setRequirePermission(true);
-            return;
-        }
-        Connection::setRequirePermission(false);
-        $this->permissions = new ListPermission();
+		$this->db = Connection::instance();
+        $this->factory = new PermissionFactory();
     }
 
     public function permission():self{
-        if($this->permissions === null){
+        if(!self::requirePermission()){
             return $this;
         }
-        $collector = $this->permissions->byTable(Connection::userId(), $this->table->tableName());
+        $where = new Where($this->table);
+        $where->eq('id', self::userId(), $this->tableName);
+        $where->eq('table', $this->table->tableName(), $this->tableName);
+
+		$this->db->query("SELECT * FROM `permission` " . $where->get());
+		$this->db->commit();
+
+        $collector = $this->factory->map($this->db->results());
         $collector->assertHasItem('You do not have permission.');
         return $this->assert($collector->first());
     }
@@ -47,6 +54,22 @@ class Permission {
             throw new Exception('You need to first call select, insert, update or delete before using calling permission.');
         }
         return $this;
+    }
+
+    public static function userId():?string{
+        return self::$userId;
+    }
+
+    public static function setUserId(string $userId):void{
+        self::$userId = $userId;
+    }
+
+    public static function requirePermission():bool{
+        return self::$requirePermission;
+    }
+
+    public static function setRequirePermission(bool $requirePermission):void{
+        self::$requirePermission = $requirePermission;
     }
 
     public function isRead():bool{

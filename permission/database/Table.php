@@ -9,7 +9,7 @@ class Table {
 	protected Join $join;
 	protected OrderBy $orderBy;
 	protected Pagination $pagination;
-	protected Permission $permission;
+	protected ?Permission $permission = null;
 
 	public function __construct(){
 		$this->where = new Where($this);
@@ -17,7 +17,7 @@ class Table {
         $this->join = new Join($this);
 		$this->orderBy = new OrderBy($this);
 		$this->pagination = new Pagination($this);
-		$this->permission = new Permission($this);
+        $this->permission = new Permission($this);
 	}
 
     public function toString():string{
@@ -105,6 +105,7 @@ class Table {
 		$this->where()->reset();
 		$this->pagination()->reset();
 		$this->orderBy()->reset();
+		$this->join()->reset();
         return $this;
     }
 

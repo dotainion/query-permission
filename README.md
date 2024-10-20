@@ -1,6 +1,9 @@
 to initialize namespace when new file is created in php run:
 composer dump-autoload -o
 
+install:
+composer require dotainion/query-permission --ignore-platform-reqs
+
 update for tag version
 delete all local files:
 git ls-remote --tags origin
