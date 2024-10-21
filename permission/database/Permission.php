@@ -3,6 +3,7 @@ namespace permission\database;
 
 use Exception;
 use permission\infrastructure\PermissionException;
+use permission\infrastructure\SqlId;
 use permission\module\permission\factory\PermissionFactory;
 use permission\module\permission\objects\IPermission;
 use permission\security\Connection;
@@ -13,7 +14,7 @@ class Permission {
     protected PermissionFactory $factory;
     protected static ?string $userId = null;
     protected static bool $requirePermission = true;
-    protected string $tableName = 'permission';
+    protected static string $tableName = 'permission';
 
     public function __construct(Table $table){
         $this->table = $table;
@@ -26,32 +27,34 @@ class Permission {
             return $this;
         }
         $where = new Where($this->table);
-        $where->eq('id', self::userId(), $this->tableName);
-        $where->eq('table', $this->table->tableName(), $this->tableName);
+        $where->eq('userId', (new SqlId())->toBytes(self::userId()), self::tableName());
+        $where->eq('table', $this->table->tableName(), self::tableName());
+        $limit = new Pagination($this->table);
+        $limit->limit(1);
 
-		$this->db->query("SELECT * FROM `permission` " . $where->get());
+		$this->db->query("SELECT * FROM `" . self::tableName() . "` " . $where->get() . " " . $limit->get());
 		$this->db->commit();
 
         $collector = $this->factory->map($this->db->results());
-        $collector->assertHasItem('You do not have permission.');
+        $collector->assertHasItem('Access denied! You do not have permission.');
         return $this->assert($collector->first());
     }
 
     public function assert(IPermission $permission):self{
         if($this->isRead() && !$permission->read()){
-            throw new PermissionException('You do not have permission to view or edit this resource.');
+            throw new PermissionException('Access denied! You do not have permission to view or edit this resource.');
         }
 		if($this->isWrite() && !$permission->write()){
-            throw new PermissionException('You do not have permission to add or create new resources.');
+            throw new PermissionException('Access denied! You do not have permission to add or create new resources.');
         }
 		if($this->isEdit() && !$permission->edit()){
-            throw new PermissionException('You do not have permission to modify this resource.');
+            throw new PermissionException('Access denied! You do not have permission to modify this resource.');
         }
 		if($this->isDelete() && !$permission->delete()){
-            throw new PermissionException('Error: You do not have permission to delete this resource.');
+            throw new PermissionException('Access denied! You do not have permission to delete this resource.');
         }
         if(!$this->isRead() && !$this->isWrite() && !$this->isEdit() && !$this->isDelete()){
-            throw new Exception('You need to first call select, insert, update or delete before using calling permission.');
+            throw new Exception('You need to first call select, insert, update or delete before you can call permission.');
         }
         return $this;
     }
@@ -70,6 +73,14 @@ class Permission {
 
     public static function setRequirePermission(bool $requirePermission):void{
         self::$requirePermission = $requirePermission;
+    }
+
+    public static function tableName():string{
+        return self::$tableName;
+    }
+
+    public static function setPermissionTableName(string $tableName):void{
+        self::$tableName = $tableName;
     }
 
     public function isRead():bool{

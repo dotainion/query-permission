@@ -11,6 +11,7 @@ class Schema{
     public function permission(){
         $this->sql->create('permission')
             ->column('id')->bindary()
+            ->column('userId')->bindary()
             ->column('table')->string()
             ->column('r')->bool()
             ->column('w')->bool()
