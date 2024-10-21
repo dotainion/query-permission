@@ -5,7 +5,6 @@ use permission\infrastructure\SqlId;
 
 class Permission implements IPermission{
     protected SqlId $id;
-    protected SqlId $userId;
     protected string $table;
     protected bool $read;
     protected bool $write;
@@ -14,7 +13,6 @@ class Permission implements IPermission{
 
     public function __construct(
         string $id, 
-        string $userId, 
         string $table, 
         bool $read, 
         bool $write, 
@@ -22,7 +20,6 @@ class Permission implements IPermission{
         bool $delete
     ){
         $this->id = new SqlId($id);
-        $this->userId = new SqlId($userId);
         $this->table = $table;
         $this->read = $read;
         $this->write = $write;
@@ -32,10 +29,6 @@ class Permission implements IPermission{
 
     public function id(){
         return $this->id;
-    }
-
-    public function userId(){
-        return $this->userId;
     }
 
     public function table():string{

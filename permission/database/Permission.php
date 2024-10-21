@@ -27,7 +27,7 @@ class Permission {
             return $this;
         }
         $where = new Where($this->table);
-        $where->eq('userId', (new SqlId())->toBytes(self::userId()), self::tableName());
+        $where->eq('id', (new SqlId())->toBytes(self::userId()), self::tableName());
         $where->eq('table', $this->table->tableName(), self::tableName());
         $limit = new Pagination($this->table);
         $limit->limit(1);

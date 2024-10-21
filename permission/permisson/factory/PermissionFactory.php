@@ -14,7 +14,6 @@ class PermissionFactory extends Collector{
     public function mapResult($record):Permission{
         return new Permission(
             $this->uuid($record['id']),
-            $this->uuid($record['userId']),
             (string)$record['table'],
             (bool)$record['r'],
             (bool)$record['w'],
