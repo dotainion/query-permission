@@ -26,6 +26,7 @@ class Permission {
         if(!self::requirePermission()){
             return $this;
         }
+        (new SqlId())->assert(self::userId(), 'User to access permission not found.');
         $where = new Where($this->table);
         $where->eq('id', (new SqlId())->toBytes(self::userId()), self::tableName());
         $where->eq('table', $this->table->tableName(), self::tableName());
