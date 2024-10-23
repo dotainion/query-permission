@@ -1,6 +1,9 @@
 to initialize namespace when new file is created in php run:
 composer dump-autoload -o
 
+packagist:
+https://packagist.org/packages/dotainion/query-permission
+
 install:
 composer require dotainion/query-permission --ignore-platform-reqs
 

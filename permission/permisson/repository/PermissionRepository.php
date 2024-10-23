@@ -43,7 +43,7 @@ class PermissionRepository extends SqlRepository{
             $this->where()->eq('id', $this->uuid($where['id']));
         }
         if(isset($where['table'])){
-            $this->where()->eq('table', $this->uuid($where['table']));
+            $this->where()->eq('table', $where['table']);
         }
         $this->execute();
         return $this->factory->map(
