@@ -27,12 +27,13 @@ class PermissionRepository extends SqlRepository{
     
     public function edit(Permission $permission):void{
         $this->update('permission')
-            ->column('table', $permission->table())
             ->column('r', $permission->read())
             ->column('w', $permission->write())
             ->column('e', $permission->edit())
             ->column('d', $permission->delete())
-            ->where()->eq('id', $this->uuid($permission->id()));
+            ->where()
+            ->eq('id', $this->uuid($permission->id()))
+            ->eq('table', $permission->table());
         $this->execute();
     }
     
