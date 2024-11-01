@@ -15,7 +15,6 @@ class Permission {
     protected static ?string $userId = null;
     protected static bool $requirePermission = true;
     protected static string $tableName = 'permission';
-    protected static array $allowTableBypass = [];
 
     public function __construct(Table $table){
         $this->table = $table;
@@ -24,7 +23,7 @@ class Permission {
     }
 
     public function permission():self{
-        if(!self::requirePermission() || in_array($this->table->tableName(), self::$allowTableBypass)){
+        if(!self::requirePermission()){
             return $this;
         }
         (new SqlId())->assert(self::userId(), 'User to access permission not found.');
@@ -83,10 +82,6 @@ class Permission {
 
     public static function setPermissionTableName(string $tableName):void{
         self::$tableName = $tableName;
-    }
-
-    public static function allowTableBypass(array $tableNames):void{
-        self::$allowTableBypass = $tableNames;
     }
 
     public function isRead():bool{
