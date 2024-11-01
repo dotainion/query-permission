@@ -4,8 +4,8 @@ namespace permission\database;
 use Exception;
 use permission\infrastructure\PermissionException;
 use permission\infrastructure\SqlId;
-use permission\module\permission\factory\PermissionFactory;
-use permission\module\permission\objects\IPermission;
+use permission\permission\factory\PermissionFactory;
+use permission\permission\objects\IPermission;
 use permission\security\Connection;
 
 class Permission {
