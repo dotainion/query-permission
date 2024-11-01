@@ -178,6 +178,7 @@ return array(
     'permission\\database\\Where' => $baseDir . '/permission/database/Where.php',
     'permission\\infrastructure\\Collector' => $baseDir . '/permission/infrastructure/Collector.php',
     'permission\\infrastructure\\Factory' => $baseDir . '/permission/infrastructure/Factory.php',
+    'permission\\infrastructure\\IRepo' => $baseDir . '/permission/infrastructure/IRepo.php',
     'permission\\infrastructure\\PermissionException' => $baseDir . '/permission/infrastructure/PermissionException.php',
     'permission\\infrastructure\\SqlId' => $baseDir . '/permission/infrastructure/SqlId.php',
     'permission\\module\\permission\\action\\PermissionRepository' => $baseDir . '/permission/permisson/repository/PermissionRepository.php',

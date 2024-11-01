@@ -1,7 +1,10 @@
 <?php
 namespace permission\database;
 
+use permission\infrastructure\IRepo;
+
 class Table {
+	protected IRepo $repo;
     protected string $tableName;
     protected string $query;
 	protected Where $where;
@@ -11,7 +14,8 @@ class Table {
 	protected Pagination $pagination;
 	protected ?Permission $permission = null;
 
-	public function __construct(){
+	public function __construct(IRepo $repo){
+        $this->repo = $repo;
 		$this->where = new Where($this);
 		$this->cols = new Column($this);
         $this->join = new Join($this);
@@ -31,34 +35,40 @@ class Table {
     public function select(string $tableName, string $columns = '*'):self{
         $this->tableName = $tableName;
         $this->query = "SELECT $columns FROM `$this->tableName`";
+        $this->repo->onQueryStart('SELECT');
         return $this;
     }
 
     public function insert(string $tableName):self{
         $this->tableName = $tableName;
         $this->query = "INSERT INTO `$this->tableName` ";
+        $this->repo->onQueryStart('INSERT');
         return $this;
     }
 
     public function update(string $tableName):self{
         $this->tableName = $tableName;
         $this->query = "UPDATE `$this->tableName` SET ";
+        $this->repo->onQueryStart('UPDATE');
         return $this;
     }
 
     public function delete(string $tableName):self{
         $this->tableName = $tableName;
         $this->query = "DELETE FROM `$this->tableName`";
+        $this->repo->onQueryStart('DELETE');
         return $this;
     }
 
     public function drop(string $tableName) {
         $this->query = "DROP TABLE IF EXISTS `$tableName`";
+        $this->repo->onQueryStart('DROP');
         return $this;
     }
 
     public function truncate(string $tableName):self{
         $this->query = "TRUNCATE TABLE `$tableName`";
+        $this->repo->onQueryStart('TRUNCATE');
         return $this;
     }
 

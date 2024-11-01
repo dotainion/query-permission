@@ -2,14 +2,15 @@
 namespace permission;
 
 use permission\database\Table;
+use permission\infrastructure\IRepo;
 use permission\infrastructure\SqlId;
 use permission\security\Connection;
 
 class SqlRepository extends Table{
 	protected Connection $db;
 
-	public function __construct(){
-		parent::__construct();
+	public function __construct(IRepo $repo){
+		parent::__construct($repo);
 		$this->db = Connection::instance();
 	}
 

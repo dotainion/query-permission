@@ -239,6 +239,7 @@ class ComposerStaticInit71120c75292eae0dbbda1b628875a0f1
         'permission\\database\\Where' => __DIR__ . '/../..' . '/permission/database/Where.php',
         'permission\\infrastructure\\Collector' => __DIR__ . '/../..' . '/permission/infrastructure/Collector.php',
         'permission\\infrastructure\\Factory' => __DIR__ . '/../..' . '/permission/infrastructure/Factory.php',
+        'permission\\infrastructure\\IRepo' => __DIR__ . '/../..' . '/permission/infrastructure/IRepo.php',
         'permission\\infrastructure\\PermissionException' => __DIR__ . '/../..' . '/permission/infrastructure/PermissionException.php',
         'permission\\infrastructure\\SqlId' => __DIR__ . '/../..' . '/permission/infrastructure/SqlId.php',
         'permission\\module\\permission\\action\\PermissionRepository' => __DIR__ . '/../..' . '/permission/permisson/repository/PermissionRepository.php',
