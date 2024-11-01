@@ -1,10 +1,9 @@
 <?php
-namespace permission\module\permission\logic;
+namespace permission\permission\logic;
 
 use InvalidArgumentException;
-use permission\infrastructure\SqlId;
-use permission\module\permission\action\PermissionRepository;
-use permission\module\permission\factory\PermissionFactory;
+use permission\permission\action\PermissionRepository;
+use permission\permission\factory\PermissionFactory;
 
 class SavePermission{
     protected PermissionRepository $repo;

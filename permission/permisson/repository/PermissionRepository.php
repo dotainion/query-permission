@@ -1,12 +1,11 @@
 <?php
-namespace permission\module\permission\action;
+namespace permission\permission\action;
 
 use permission\infrastructure\Collector;
-use permission\module\permission\factory\PermissionFactory;
-use permission\module\permission\objects\Permission;
-use permission\SqlRepository;
+use permission\permission\factory\PermissionFactory;
+use permission\permission\objects\Permission;
 
-class PermissionRepository extends SqlRepository{
+class PermissionRepository extends PermissionRepoHandler{
     protected PermissionFactory $factory;
 
     public function __construct(){

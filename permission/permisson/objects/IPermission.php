@@ -1,5 +1,5 @@
 <?php
-namespace permission\module\permission\objects;
+namespace permission\permission\objects;
 
 interface IPermission{
     public function id();

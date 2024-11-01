@@ -1,9 +1,9 @@
 <?php
-namespace permission\module\permission\logic;
+namespace permission\permission\logic;
 
 use permission\infrastructure\Collector;
 use permission\infrastructure\SqlId;
-use permission\module\permission\action\PermissionRepository;
+use permission\permission\action\PermissionRepository;
 
 class ListPermission{
     protected PermissionRepository $repo;

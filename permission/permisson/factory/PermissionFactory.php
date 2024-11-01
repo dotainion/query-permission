@@ -1,9 +1,9 @@
 <?php
-namespace permission\module\permission\factory;
+namespace permission\permission\factory;
 
 use permission\infrastructure\Collector;
 use permission\infrastructure\Factory;
-use permission\module\permission\objects\Permission;
+use permission\permission\objects\Permission;
 
 class PermissionFactory extends Collector{
     use Factory;
