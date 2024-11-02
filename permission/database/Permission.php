@@ -12,6 +12,7 @@ class Permission {
     protected Table $table;
     protected Connection $db;
     protected PermissionFactory $factory;
+    protected static bool $off = false;
     protected static ?string $userId = null;
     protected static bool $requirePermission = true;
     protected static string $tableName = 'permission';
@@ -23,7 +24,7 @@ class Permission {
     }
 
     public function permission():self{
-        if(!self::requirePermission()){
+        if(!self::requirePermission() || self::isOff()){
             return $this;
         }
         (new SqlId())->assert(self::userId(), 'User to access permission not found.');
@@ -58,6 +59,15 @@ class Permission {
             throw new Exception('You need to first call select, insert, update or delete before you can call permission.');
         }
         return $this;
+    }
+
+    public function off():self{
+        $this->off = true;
+        return $this;
+    }
+
+    public function isOff():bool{
+        return $this->off;
     }
 
     public static function userId():?string{
