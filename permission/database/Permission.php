@@ -62,12 +62,12 @@ class Permission {
     }
 
     public function off():self{
-        $this->off = true;
+        self::$off = true;
         return $this;
     }
 
     public function isOff():bool{
-        return $this->off;
+        return self::$off;
     }
 
     public static function userId():?string{
