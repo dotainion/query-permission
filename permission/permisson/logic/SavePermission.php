@@ -24,10 +24,6 @@ class SavePermission{
             'd' => $delete
         ]);
 
-        if(!$permission->read() && !$permission->write() && !$permission->edit() && !$permission->delete()){
-            throw new InvalidArgumentException('At least one permission (read, write, edit, or delete) must be granted to save changes.');
-        }
-
         $collector = $this->repo->listPermission([
             'id' => $permission->id(),
             'table' => $permission->table()
