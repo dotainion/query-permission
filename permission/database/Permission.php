@@ -12,7 +12,7 @@ class Permission {
     protected Table $table;
     protected Connection $db;
     protected PermissionFactory $factory;
-    protected static bool $off = false;
+    protected bool $off = false;
     protected static ?string $userId = null;
     protected static bool $requirePermission = true;
     protected static string $tableName = 'permission';
@@ -24,7 +24,7 @@ class Permission {
     }
 
     public function permission():self{
-        if(!self::requirePermission() || self::isOff()){
+        if(!self::requirePermission() || $this->isOff()){
             return $this;
         }
         (new SqlId())->assert(self::userId(), 'User to access permission not found.');
@@ -62,12 +62,12 @@ class Permission {
     }
 
     public function off():self{
-        self::$off = true;
+        $this->off = true;
         return $this;
     }
 
     public function isOff():bool{
-        return self::$off;
+        return $this->off;
     }
 
     public static function userId():?string{
