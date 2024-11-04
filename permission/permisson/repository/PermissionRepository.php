@@ -4,9 +4,9 @@ namespace permission\permission\action;
 use permission\infrastructure\Collector;
 use permission\permission\factory\PermissionFactory;
 use permission\permission\objects\Permission;
-use permission\SqlRepository;
+use tools\infrastructure\Repository;
 
-class PermissionRepository extends SqlRepository{
+class PermissionRepository extends Repository{
     protected PermissionFactory $factory;
 
     public function __construct(){
