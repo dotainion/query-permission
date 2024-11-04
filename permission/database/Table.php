@@ -20,10 +20,6 @@ class Table {
         $this->permission = new Permission($this);
 	}
 
-	public function permissionOff():void{
-		$this->permission->off();
-	}
-
     public function toString():string{
         return $this->build()->getQuery();
     }
@@ -140,5 +136,9 @@ class Table {
 
 	public function join():Join{
 		return $this->join;
+	}
+
+	public function permission():Permission{
+		return $this->permission;
 	}
 }
