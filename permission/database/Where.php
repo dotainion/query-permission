@@ -44,6 +44,16 @@ class Where {
         return $this;
 	}
 
+	public function isNull($column, $tableName = null):self{
+		$this->where($column, 'IS', null, $tableName);
+        return $this;
+	}
+
+	public function isNotNull($column, $tableName = null):self{
+		$this->where($column, 'IS NOT', null, $tableName);
+        return $this;
+	}
+
 	public function lessThan($column, $value, $tableName = null):self{
 		$this->where($column, '<', $value, $tableName);
         return $this;
