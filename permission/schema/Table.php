@@ -120,13 +120,17 @@ class Table{
 		return 'NOT NULL';
 	}
 
-	public function bindary(bool $nullable = false):self{
-		$this->column.="binary(16) " . $this->addNullable($nullable);
+	public function bindary(bool $nullable = false, bool $defaultNull=false):self{
+		$default = '';
+		($defaultNull) && $default = " DEFAULT NULL";
+		$this->column.="binary(16) " . $this->addNullable($nullable).$default;
 		return $this;
 	}
 
-	public function timestamp(bool $nullable = false):self{
-		$this->column.="timestamp ".$this->addNullable($nullable)." DEFAULT CURRENT_TIMESTAMP";
+	public function timestamp(bool $nullable = false, bool $defaultNull=false):self{
+		$default = " DEFAULT CURRENT_TIMESTAMP";
+		($defaultNull) && $default = " DEFAULT NULL";
+		$this->column.="timestamp ".$this->addNullable($nullable).$default;
 		return $this;
 	}
 
