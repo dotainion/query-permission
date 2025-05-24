@@ -31,20 +31,20 @@ class Role implements IObjects{
         return $this->permission;
     }
 
-    public function isAdmin():string{
-        return $this->label() === RoleAttributes::ADMIN;
+    public function isAdmin():bool{
+        return $this->label() === (string)RoleAttributes::ADMIN;
     }
 
-    public function isModerator():string{
-        return $this->label() === RoleAttributes::MODERATOR;
+    public function isModerator():bool{
+        return $this->label() === (string)RoleAttributes::MODERATOR;
     }
 
-    public function isMember():string{
-        return $this->label() === RoleAttributes::MEMBER;
+    public function isMember():bool{
+        return $this->label() === (string)RoleAttributes::MEMBER;
     }
 
-    public function isGuest():string{
-        return $this->label() === RoleAttributes::GUEST;
+    public function isGuest():bool{
+        return $this->label() === (string)RoleAttributes::GUEST;
     }
 
     public function setUserId(string $userId):void{
