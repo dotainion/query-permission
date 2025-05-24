@@ -24,10 +24,10 @@ class SetRoleService extends Service{
         $role = $this->factory->mapResult([
             'userId' => $userId,
             'label' => $label,
-            'read' => $read,
-            'write' => $write,
-            'edit' => $edit,
-            'delete' => $delete,
+            'r' => $read,
+            'w' => $write,
+            'e' => $edit,
+            'd' => $delete,
         ]);
 
         $this->role->set($role);
