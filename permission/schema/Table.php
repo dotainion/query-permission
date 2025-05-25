@@ -129,7 +129,7 @@ class Table{
 
 	public function timestamp(bool $nullable = false, bool $defaultNull=false):self{
 		$default = " DEFAULT CURRENT_TIMESTAMP";
-		($defaultNull) && $default = " DEFAULT NULL";
+		($defaultNull) && $default = " DEFAULT '0000-00-00 00:00:00'";
 		$this->column.="timestamp ".$this->addNullable($nullable).$default;
 		return $this;
 	}
