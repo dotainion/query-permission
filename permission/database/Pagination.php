@@ -15,7 +15,7 @@ class Pagination{
             $this->limit($where['limit']);
         }
         if(isset($where['offset'])){
-            $this->limit($where['offset']);
+            $this->offset($where['offset']);
         }
         return $this;
 	}
