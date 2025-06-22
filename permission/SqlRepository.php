@@ -4,6 +4,7 @@ namespace permission;
 use permission\database\Table;
 use permission\infrastructure\SqlId;
 use permission\security\Connection;
+use tools\security\Setup;
 
 class SqlRepository extends Table{
 	protected Connection $db;
@@ -21,6 +22,7 @@ class SqlRepository extends Table{
 
 	public function execute():self
 	{
+		Setup::fireRepoExecuteObsover($this);
 		$this->query($this->toString());
 		$this->reset();
 		return $this;
