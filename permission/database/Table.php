@@ -1,5 +1,6 @@
 <?php
 namespace permission\database;
+use tools\security\Setup;
 
 class Table {
     protected string $tableName;
@@ -31,24 +32,28 @@ class Table {
     public function select(string $tableName, string $columns = '*'):self{
         $this->tableName = $tableName;
         $this->query = "SELECT $columns FROM `$this->tableName`";
+		Setup::fireRepoSetObsover('select', $this);
         return $this;
     }
 
     public function insert(string $tableName):self{
         $this->tableName = $tableName;
         $this->query = "INSERT INTO `$this->tableName` ";
+		Setup::fireRepoSetObsover('select', $this);
         return $this;
     }
 
     public function update(string $tableName):self{
         $this->tableName = $tableName;
         $this->query = "UPDATE `$this->tableName` SET ";
+		Setup::fireRepoSetObsover('select', $this);
         return $this;
     }
 
     public function delete(string $tableName):self{
         $this->tableName = $tableName;
         $this->query = "DELETE FROM `$this->tableName`";
+		Setup::fireRepoSetObsover('select', $this);
         return $this;
     }
 
