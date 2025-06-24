@@ -39,21 +39,21 @@ class Table {
     public function insert(string $tableName):self{
         $this->tableName = $tableName;
         $this->query = "INSERT INTO `$this->tableName` ";
-		Setup::fireRepoSetObsover('select', $this);
+		Setup::fireRepoSetObsover('insert', $this);
         return $this;
     }
 
     public function update(string $tableName):self{
         $this->tableName = $tableName;
         $this->query = "UPDATE `$this->tableName` SET ";
-		Setup::fireRepoSetObsover('select', $this);
+		Setup::fireRepoSetObsover('update', $this);
         return $this;
     }
 
     public function delete(string $tableName):self{
         $this->tableName = $tableName;
         $this->query = "DELETE FROM `$this->tableName`";
-		Setup::fireRepoSetObsover('select', $this);
+		Setup::fireRepoSetObsover('delete', $this);
         return $this;
     }
 
