@@ -22,7 +22,7 @@ class SqlRepository extends Table{
 
 	public function execute():self
 	{
-		Setup::fireRepoExecuteObsover($this);
+		Setup::fireRepoExecuteObsover($this->tableName(), $this);
 		$this->query($this->toString());
 		$this->reset();
 		return $this;
