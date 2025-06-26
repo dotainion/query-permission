@@ -4,6 +4,7 @@ namespace permission\database;
 class Where {
     protected array $conditions = [];
     protected Table $table;
+    protected string $opPlaceholder = '~~OR~~';
 
     public function __construct(Table $table){
         $this->table = $table;
@@ -24,6 +25,11 @@ class Where {
 
     public function reset():self{
         $this->conditions = [];
+        return $this;
+    }
+
+    public function or():self{
+        $this->conditions[] = $this->opPlaceholder;
         return $this;
     }
 
@@ -82,7 +88,11 @@ class Where {
         if (empty($this->conditions)) {
             return '';
         }
-        return ' WHERE ' . implode(' AND ', $this->conditions);
+        if($this->conditions[count($this->conditions) -1] === $this->opPlaceholder){
+            unset($this->conditions[count($this->conditions) -1]);
+        }
+        $statement = ' WHERE ' . implode(' AND ', $this->conditions);
+        return str_replace("AND $this->opPlaceholder", ' OR ', $statement);
     }
 
     public function cursor():Table{
