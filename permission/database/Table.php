@@ -60,13 +60,13 @@ class Table {
 
     public function union():self{
         /*joint two select together eg: $this->select()->where()->union()->select()->where();*/
-        $this->union = $this->toString() . ' UNION ';
+        $this->union = str_replace(';', '', $this->toString()) . ' UNION ';
         return $this;
     }
 
     public function unionAll():self{
         /*joint two select together eg: $this->select()->where()->unionAll()->select()->where();*/
-        $this->union = $this->toString() . ' UNION ALL ';
+        $this->union = str_replace(';', '', $this->toString()) . ' UNION ALL ';
         return $this;
     }
 
