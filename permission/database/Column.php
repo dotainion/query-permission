@@ -12,7 +12,7 @@ class Column {
     public function column($name, $value):self{
         if (is_null($value)) {
             $this->columns[$name] = 'NULL';
-        } elseif (is_numeric($value)) {
+        } elseif (is_int($value) || is_float($value)) {
             $this->columns[$name] = $value;
         } else {
             $this->columns[$name] = "'" . addslashes($value) . "'";
