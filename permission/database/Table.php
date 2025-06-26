@@ -5,6 +5,7 @@ use tools\security\Setup;
 class Table {
     protected string $tableName;
     protected string $query;
+    protected string $union = '';
 	protected Where $where;
 	protected Column $cols;
 	protected Join $join;
@@ -57,6 +58,18 @@ class Table {
         return $this;
     }
 
+    public function union():self{
+        /*joint two select together eg: $this->select()->where()->union()->select()->where();*/
+        $this->union = $this->toString() . ' UNION ';
+        return $this;
+    }
+
+    public function unionAll():self{
+        /*joint two select together eg: $this->select()->where()->unionAll()->select()->where();*/
+        $this->union = $this->toString() . ' UNION ALL ';
+        return $this;
+    }
+
     public function drop(string $tableName) {
         $this->query = "DROP TABLE IF EXISTS `$tableName`";
         return $this;
@@ -91,7 +104,13 @@ class Table {
 		$this->query .= $this->where()->get();
 		$this->query .= $this->orderBy()->get();
 		$this->query .= $this->pagination()->get();
+
+        //bind union/multiple query
+        $this->union .= $this->query;
+        $this->query = $this->union;
+
 		$this->query .= ';';
+        $this->union = '';
         return $this;
     }
 

@@ -91,6 +91,9 @@ class Where {
         if($this->conditions[count($this->conditions) -1] === $this->opPlaceholder){
             unset($this->conditions[count($this->conditions) -1]);
         }
+        if($this->conditions[0] === $this->opPlaceholder){
+            unset($this->conditions[0]);
+        }
         $statement = ' WHERE ' . implode(' AND ', $this->conditions);
         $statement = str_replace("AND $this->opPlaceholder", ' OR ', $statement);
         return str_replace("$this->opPlaceholder AND", ' OR ', $statement);
