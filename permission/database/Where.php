@@ -92,7 +92,8 @@ class Where {
             unset($this->conditions[count($this->conditions) -1]);
         }
         $statement = ' WHERE ' . implode(' AND ', $this->conditions);
-        return str_replace("AND $this->opPlaceholder", ' OR ', $statement);
+        $statement = str_replace("AND $this->opPlaceholder", ' OR ', $statement);
+        return str_replace("$this->opPlaceholder AND", ' OR ', $statement);
     }
 
     public function cursor():Table{
