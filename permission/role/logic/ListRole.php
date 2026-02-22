@@ -3,10 +3,9 @@ namespace permission\role\logic;
 
 use tools\infrastructure\Collector;
 use tools\infrastructure\Id;
-use tools\infrastructure\Service;
 use permission\role\repository\RoleRepository;
 
-class ListRole extends Service{
+class ListRole{
     protected RoleRepository $repo;
 
     public function __construct(){

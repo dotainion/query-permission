@@ -1,12 +1,11 @@
 <?php
 namespace permission\role\logic;
 
-use tools\infrastructure\Service;
 use permission\role\objects\Role;
 use permission\role\repository\RolePermissionRepository;
 use permission\role\repository\RoleRepository;
 
-class SetRole extends Service{
+class SetRole{
     protected RoleRepository $roleRepo;
     protected RolePermissionRepository $permissionRepo;
 
