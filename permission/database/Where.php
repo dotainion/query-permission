@@ -39,6 +39,18 @@ class Where {
         return $this;
     }
 
+    public function startWith($column, $value, $tableName = null):self{
+        $tableName = $tableName ?? $this->table->tableName();
+        $this->conditions[] = "`$tableName`.`$column` LIKE '%" . addslashes($value) . "'";
+        return $this;
+    }
+
+    public function endWith($column, $value, $tableName = null):self{
+        $tableName = $tableName ?? $this->table->tableName();
+        $this->conditions[] = "`$tableName`.`$column` LIKE '" . addslashes($value) . "%'";
+        return $this;
+    }
+
     public function between($column, $from, $to, $tableName = null):self{
         $tableName = $tableName ?? $this->table->tableName();
         $this->conditions[] = "`$tableName`.`$column` BETWEEN '" . addslashes($from) . "' AND '" . addslashes($to) . "'";

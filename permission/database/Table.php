@@ -6,6 +6,7 @@ class Table {
     protected string $tableName;
     protected string $query;
     protected string $union = '';
+    protected Alias $alias;
 	protected Where $where;
 	protected Column $cols;
 	protected Join $join;
@@ -14,6 +15,7 @@ class Table {
 	protected ?Permission $permission = null;
 
 	public function __construct(){
+		$this->alias = new Alias($this);
 		$this->where = new Where($this);
 		$this->cols = new Column($this);
         $this->join = new Join($this);
@@ -80,15 +82,6 @@ class Table {
         return $this;
     }
 
-    public function alias(string $columnName, string $newColumnName):self{
-        $this->query = preg_replace(
-            "/`$columnName`/",
-            "`$columnName` AS `$newColumnName`",
-            $this->query
-        );
-        return $this;
-    }
-
     public function build():self{
         $this->permission->permission();
         if(strpos(strtoupper($this->query), 'INSERT INTO') === 0){
@@ -104,6 +97,9 @@ class Table {
 		$this->query .= $this->where()->get();
 		$this->query .= $this->orderBy()->get();
 		$this->query .= $this->pagination()->get();
+
+        //replace columns with alias
+		$this->query = $this->alias()->get();
 
         //bind union/multiple query
         $this->union .= $this->query;
@@ -125,6 +121,7 @@ class Table {
     }
 
     public function reset():self{
+        $this->alias()->reset();
 		$this->cols()->reset();
 		$this->where()->reset();
 		$this->pagination()->reset();
@@ -160,6 +157,10 @@ class Table {
 
 	public function join():Join{
 		return $this->join;
+	}
+
+	public function alias():Alias{
+		return $this->alias;
 	}
 
 	public function permission():Permission{
