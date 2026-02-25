@@ -127,10 +127,20 @@ class Table{
 		return $this;
 	}
 
-	public function timestamp(bool $nullable = false, bool $defaultNull=false):self{
-		$default = " DEFAULT CURRENT_TIMESTAMP";
-		($defaultNull) && $default = " DEFAULT '0000-00-00 00:00:00'";
-		$this->column.="timestamp ".$this->addNullable($nullable).$default;
+	public function timestamp(bool $defaultTimestamp=false):self{
+		$default = "";
+		($defaultTimestamp) && $default = " DEFAULT '0000-00-00 00:00:00'";
+		$this->column.="timestamp ".$default;
+		return $this;
+	}
+
+	public function nullableTimestamp():self{
+		$this->column.="timestamp NULL";
+		return $this;
+	}
+
+	public function currentTimestamp():self{
+		$this->column.="timestamp DEFAULT CURRENT_TIMESTAMP";
 		return $this;
 	}
 
